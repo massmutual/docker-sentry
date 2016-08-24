@@ -1,0 +1,59 @@
+version: '2'
+services:
+  redis:
+    image: redis
+
+  postgres:
+    restart: always
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DBNAME: sentry
+      POSTGRES_DBUSER: sentry
+      POSTGRES_DBPASS: sentry
+
+  base:
+    image: sentry:latest
+    environment:
+      SENTRY_SECRET_KEY: 'a-super-secret-key'
+      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_POSTGRES_PORT: 5432
+      SENTRY_DB_USER: postgres
+      SENTRY_DB_PASSWORD: postgres
+      SENTRY_REDIS_HOST: redis
+
+  sentry:
+    extends: base
+    depends_on:
+      - redis
+      - postgres
+    links:
+      - redis
+      - postgres
+    ports:
+      - 80:9000      
+
+  sentry-cron:
+    extends: base
+    depends_on:
+      - sentry
+      - redis
+      - postgres
+    command: "run cron"
+
+  sentry-worker-1:
+    extends: base
+    depends_on:
+      - sentry
+      - redis
+      - postgres
+    command: "run worker"
+
+# Define shared volumes
+volumes:
+  pgdata: {}
