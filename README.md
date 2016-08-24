@@ -27,19 +27,13 @@ Then, make the docker-machine instance you created active in your current shell 
 $ eval "$(docker-machine env docker-sentry-local)"
 ```
 
-Now, start the redis container:
+Now, start the redis & postgres containers:
 
 ```
-$ docker-compose up -d redis
+$ docker-compose up -d redis postgres
 ```
 
-And then start the postgres container:
-
-```bash
-$ docker-compose up -d postgres
-```
-
-Now prepare the database for Sentry:
+Next, prepare the database for Sentry:
 
 ```
 $ docker-compose run --rm sentry upgrade
