@@ -54,3 +54,17 @@ $ docker-machine ip docker-sentry-local
 ```
 
 Copy that IP address, paste it in your favorite web browser and login (with the credentials you created when initializing the database) to get started.
+
+## Integrating Sentry With Applications
+
+Once Sentry is up and running locally you'll probably want to test how it works. You can do this by integrating it with another locally running application, here's how:
+
+1. First login to Sentry and click the blue **New Project** button in the top right of your browser window.
+
+2. Enter a name and click **Create Project**.
+
+3. Find the applicable **Framework** (if using one) or **Language** your app is utilizing, click on it and then follow the simple Installation & Setup instructions.
+
+4. Now do something in your app that you know will raise an exception (if your app is super-stable then just add a bit of code you know will cause it to barf).
+
+5. Within Sentry click on the 'Projects & Teams' link in the left sidebard (it's under the ORGANIZATION heading) and then click on the project you created in Step 2 to see how Sentry displays/aggregates errors.

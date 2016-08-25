@@ -18,7 +18,7 @@ services:
       POSTGRES_DBPASS: sentry
 
   base:
-    image: sentry:latest
+    image: sentry:8.7
     environment:
       SENTRY_SECRET_KEY: 'a-super-secret-key'
       SENTRY_POSTGRES_HOST: postgres
