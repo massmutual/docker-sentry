@@ -30,13 +30,13 @@ $ eval "$(docker-machine env docker-sentry-local)"
 Now, start the redis & postgres containers:
 
 ```
-$ docker-compose up -d redis postgres
+$ docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d redis postgres
 ```
 
 Next, prepare the database for Sentry:
 
 ```
-$ docker-compose run --rm sentry upgrade
+$ docker-compose -f docker-compose.yml -f docker-compose.local.yml run --rm sentry upgrade
 ```
 
 This command will ask you to create a user and, when prompted, be sure to give it superuser access.
@@ -44,7 +44,7 @@ This command will ask you to create a user and, when prompted, be sure to give i
 Finally, start sentry, sentry's CRON process and its queue worker:
 
 ```bash
-$ docker-compose up -d sentry sentry-cron sentry-worker-1
+$ docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d sentry sentry-cron sentry-worker-1
 ```
 
 You're done! Nice! To see Sentry in action you'll need to get the IP for the docker-machine instance you just created:
