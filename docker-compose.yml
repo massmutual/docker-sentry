@@ -1,14 +1,14 @@
 version: '2'
 services:
   redis:
-    cpu_shares: 512
-    mem_limit: 1058993459
+    cpu_shares: 228
+    mem_limit: 300m
     image: redis
 
   sentry:
     image: arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry
-    cpu_shares: 512
-    mem_limit: 1258993459
+    cpu_shares: 412
+    mem_limit: 404m
     depends_on:
       - redis
     links:
@@ -21,8 +21,8 @@ services:
       S3_CONFIG_PATH: ""
 
   sentry-cron:
-    cpu_shares: 256
-    mem_limit: 558993459
+    cpu_shares: 128
+    mem_limit: 116mb
     image: arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry
     depends_on:
       - sentry
@@ -32,8 +32,8 @@ services:
     command: "run cron"
 
   sentry-worker-1:
-    cpu_shares: 256
-    mem_limit: 558993459
+    cpu_shares: 128
+    mem_limit: 116mb
     image: arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry
     depends_on:
       - sentry
