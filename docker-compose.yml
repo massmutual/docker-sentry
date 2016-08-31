@@ -1,59 +1,56 @@
 version: '2'
 services:
   redis:
+    cpu_shares: 512
+    mem_limit: 1058993459
     image: redis
 
-  postgres:
-    restart: always
-    image: postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data/
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DBNAME: sentry
-      POSTGRES_DBUSER: sentry
-      POSTGRES_DBPASS: sentry
-
-  base:
-    image: sentry:8.7
-    environment:
-      SENTRY_SECRET_KEY: 'a-super-secret-key'
-      SENTRY_POSTGRES_HOST: postgres
-      SENTRY_POSTGRES_PORT: 5432
-      SENTRY_DB_USER: postgres
-      SENTRY_DB_PASSWORD: postgres
-      SENTRY_REDIS_HOST: redis
-
   sentry:
-    extends: base
+    image: arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry
+    cpu_shares: 512
+    mem_limit: 1258993459
     depends_on:
       - redis
-      - postgres
     links:
       - redis
-      - postgres
     ports:
-      - 80:9000      
+      - 9000:9000
+    volumes:
+      - config:/config
+    environment:
+      S3_CONFIG_PATH: ""
 
   sentry-cron:
-    extends: base
+    cpu_shares: 256
+    mem_limit: 558993459
+    image: arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry
     depends_on:
       - sentry
       - redis
-      - postgres
+    volumes:
+      - config:/config
     command: "run cron"
 
   sentry-worker-1:
-    extends: base
+    cpu_shares: 256
+    mem_limit: 558993459
+    image: arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry
     depends_on:
       - sentry
       - redis
-      - postgres
+    volumes:
+      - config:/config
     command: "run worker"
 
-# Define shared volumes
+  configuration:
+    image: m38io/module.configuration:bdff373f343055d94f11081c18a33f210858e986
+    volumes:
+      - config:/config
+    cpu_shares: 128
+    mem_limit: 64m
+    environment:
+      S3_CONFIG_PATH: "BUCKET_PATH_HERE"
+      CONFIG_OUTPUT_PATH: "/config/credentials.sh"
+
 volumes:
-  pgdata: {}
+  config: {}

@@ -11,38 +11,35 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: sentry
+  
   sentry:
+    build: ./
     links:
       - redis
       - postgres
     ports:
       - 80:9000
     environment:
-      SENTRY_SECRET_KEY: 'a-super-secret-key'
-      SENTRY_POSTGRES_HOST: postgres
-      SENTRY_POSTGRES_PORT: 5432
-      SENTRY_DB_USER: postgres
-      SENTRY_DB_PASSWORD: postgres
-      SENTRY_REDIS_HOST: redis
+      CONFIG_PATH_IN: ""
 
   sentry-cron:
+    build: ./
     environment:
-      SENTRY_SECRET_KEY: 'a-super-secret-key'
-      SENTRY_POSTGRES_HOST: postgres
-      SENTRY_POSTGRES_PORT: 5432
-      SENTRY_DB_USER: postgres
-      SENTRY_DB_PASSWORD: postgres
-      SENTRY_REDIS_HOST: redis
+      CONFIG_PATH_IN: ""
 
   sentry-worker-1:
+    build: ./
     environment:
-      SENTRY_SECRET_KEY: 'a-super-secret-key'
-      SENTRY_POSTGRES_HOST: postgres
-      SENTRY_POSTGRES_PORT: 5432
-      SENTRY_DB_USER: postgres
-      SENTRY_DB_PASSWORD: postgres
-      SENTRY_REDIS_HOST: redis
+      CONFIG_PATH_IN: ""
+
+  configuration:
+    # Override the entrypoint so the configuration module does NOT try to get a config file
+    # from S3 bucket since for local development there is no corresponding S3 bucket. All
+    # configuration for local dev environment comes from the default.json file in /config dir
+    entrypoint: "/bin/echo Skipping loading of config file from S3 in local development environment"
+    logging: {}
 
 # Define shared volumes
 volumes:
   pgdata: {}
+  config: {}
