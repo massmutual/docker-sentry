@@ -51,7 +51,7 @@ services:
       S3_CONFIG_PATH: "/config/credentials.sh"
 
   configuration:
-    image: m38io/datascience-sentry
+    image: m38io/module.configuration:bdff373f343055d94f11081c18a33f210858e986
     volumes:
       - config:/config
     cpu_shares: 128
