@@ -10,6 +10,7 @@ services:
     image: arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry
     cpu_shares: 412
     mem_limit: 404m
+    restart: always
     depends_on:
       - redis
     links:
@@ -24,6 +25,7 @@ services:
   sentry-cron:
     cpu_shares: 128
     mem_limit: 116m
+    restart: always
     image: arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry
     depends_on:
       - sentry
@@ -35,6 +37,7 @@ services:
   sentry-worker-1:
     cpu_shares: 128
     mem_limit: 116m
+    restart: always
     image: arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry
     depends_on:
       - sentry
