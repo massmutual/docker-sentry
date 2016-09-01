@@ -4,7 +4,21 @@ set -e
 
 FILE="$CONFIG_PATH_IN"
 if [ ${#FILE} -ge 1 ]; then
-    echo "Use S3 config file."
+    echo "Using S3 config file."
+    x=0
+    while [ "$x" -lt 100 -a ! -e $FILE ]; do
+        x=$((x+1))
+        echo "Waiting for file to exist: $FILE"
+        sleep .5
+    done
+    if [ -e ${FILE} ]
+    then
+        echo "Found: ${FILE}, copying to config directory: /config/credentials.sh"
+        cp ${FILE} /config/credentials.sh
+    else
+        echo "File ${FILE} not found within time limit!"
+        exit 1 # Did not find file within specified time, exit as failure
+    fi
 else
     echo "No config file defined. Running locally"
     # if we're running locally copy the local config file over for nginx
