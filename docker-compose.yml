@@ -16,11 +16,11 @@ services:
     links:
       - redis
     ports:
-      - 9000:9000
+      - 80:9000
     volumes:
       - config:/config
     environment:
-      S3_CONFIG_PATH: ""
+      S3_CONFIG_PATH: "/config/credentials.sh"
 
   sentry-cron:
     cpu_shares: 128
@@ -33,6 +33,8 @@ services:
     volumes:
       - config:/config
     command: "run cron"
+    environment:
+      S3_CONFIG_PATH: "/config/credentials.sh"
 
   sentry-worker-1:
     cpu_shares: 128
@@ -45,6 +47,8 @@ services:
     volumes:
       - config:/config
     command: "run worker"
+    environment:
+      S3_CONFIG_PATH: "/config/credentials.sh"
 
   configuration:
     image: m38io/module.configuration:bdff373f343055d94f11081c18a33f210858e986
