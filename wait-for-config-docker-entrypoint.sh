@@ -17,11 +17,10 @@ if [ ${#FILE} -ge 1 ]; then
         cp ${FILE} /config/credentials.sh
     else
         echo "File ${FILE} not found within time limit!"
-        exit 1 # Did not find file within specified time, exit as failure
+        exit 1
     fi
 else
     echo "No config file defined. Running locally"
-    # if we're running locally copy the local config file over for nginx
     cp local-credentials.sh /config/credentials.sh
     echo "Local config file copied successfully!"
 fi
