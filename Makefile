@@ -1,7 +1,7 @@
 NAME = datascience-sentry
 VERSION ?= latest
 GIT_COMMIT_TAG ?= none
-IMAGE_NAME = "arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry"
+IMAGE_NAME = "m38io/$(NAME)"
 INSTANCE = default
 CONTAINER_NAME = "$(NAME).$(INSTANCE)"
 BUILD_IMAGE_NAME = "$(IMAGE_NAME):build"

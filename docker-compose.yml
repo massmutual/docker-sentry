@@ -3,11 +3,11 @@ version: '2'
 services:
   redis:
     cpu_shares: 228
-    mem_limit: 300m
+    mem_limit: 301m
     image: redis
 
   sentry:
-    image: arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry
+    image: m38io/datascience-sentry
     cpu_shares: 412
     mem_limit: 404m
     restart: always
@@ -26,7 +26,7 @@ services:
     cpu_shares: 128
     mem_limit: 116m
     restart: always
-    image: arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry
+    image: m38io/datascience-sentry
     depends_on:
       - sentry
       - redis
@@ -40,7 +40,7 @@ services:
     cpu_shares: 128
     mem_limit: 116m
     restart: always
-    image: arn:aws:ecr:us-east-1:340827108577:repository/datascience-sentry
+    image: m38io/datascience-sentry
     depends_on:
       - sentry
       - redis
@@ -51,7 +51,7 @@ services:
       S3_CONFIG_PATH: "/config/credentials.sh"
 
   configuration:
-    image: m38io/module.configuration:bdff373f343055d94f11081c18a33f210858e986
+    image: m38io/datascience-sentry
     volumes:
       - config:/config
     cpu_shares: 128
