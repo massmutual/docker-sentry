@@ -55,7 +55,7 @@ services:
     volumes:
       - config:/config
     cpu_shares: 128
-    mem_limit: 64m
+    mem_limit: 58m
     environment:
       S3_CONFIG_PATH: "BUCKET_PATH_HERE"
       CONFIG_OUTPUT_PATH: "/config/credentials.sh"
