@@ -22,33 +22,33 @@ services:
     environment:
       CONFIG_PATH_IN: "/config/credentials.sh"
 
-  sentry-cron:
-    cpu_shares: 128
-    mem_limit: 116m
-    restart: always
-    image: m38io/datascience-sentry:latest
-    depends_on:
-      - sentry
-      - redis
-    volumes:
-      - config:/config
-    command: "run cron"
-    environment:
-      CONFIG_PATH_IN: "/config/credentials.sh"
+  # sentry-cron:
+  #   cpu_shares: 128
+  #   mem_limit: 116m
+  #   restart: always
+  #   image: m38io/datascience-sentry:latest
+  #   depends_on:
+  #     - sentry
+  #     - redis
+  #   volumes:
+  #     - config:/config
+  #   command: "run cron"
+  #   environment:
+  #     CONFIG_PATH_IN: "/config/credentials.sh"
 
-  sentry-worker-1:
-    cpu_shares: 128
-    mem_limit: 116m
-    restart: always
-    image: m38io/datascience-sentry:latest
-    depends_on:
-      - sentry
-      - redis
-    volumes:
-      - config:/config
-    command: "run worker"
-    environment:
-      CONFIG_PATH_IN: "/config/credentials.sh"
+  # sentry-worker-1:
+  #   cpu_shares: 128
+  #   mem_limit: 116m
+  #   restart: always
+  #   image: m38io/datascience-sentry:latest
+  #   depends_on:
+  #     - sentry
+  #     - redis
+  #   volumes:
+  #     - config:/config
+  #   command: "run worker"
+  #   environment:
+  #     CONFIG_PATH_IN: "/config/credentials.sh"
 
   configuration:
     image: m38io/module.configuration:bdff373f343055d94f11081c18a33f210858e986
