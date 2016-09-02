@@ -29,6 +29,7 @@ services:
       - config:/config
     command: "run cron"
     environment:
+      S3_CONFIG_PATH: "sentry-test-bucket/deploy-credentials-test.sh"
       CONFIG_PATH_IN: "/config/credentials.sh"
 
   sentry-worker-1:
@@ -41,6 +42,7 @@ services:
       - config:/config
     command: "run worker"
     environment:
+      S3_CONFIG_PATH: "sentry-test-bucket/deploy-credentials-test.sh"
       CONFIG_PATH_IN: "/config/credentials.sh"
 
 volumes:
