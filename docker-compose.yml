@@ -20,7 +20,7 @@ services:
     volumes:
       - config:/config
     environment:
-      CONFIG_PATH_IN: "deploy-credentials-test.sh"
+      CONFIG_PATH_IN: "/usr/src/sentry/deploy-credentials-test.sh"
 
   sentry-cron:
     cpu_shares: 128
@@ -34,7 +34,7 @@ services:
       - config:/config
     command: "run cron"
     environment:
-      CONFIG_PATH_IN: "deploy-credentials-test.sh"
+      CONFIG_PATH_IN: "/usr/src/sentry/deploy-credentials-test.sh"
 
   sentry-worker-1:
     cpu_shares: 128
@@ -48,7 +48,7 @@ services:
       - config:/config
     command: "run worker"
     environment:
-      CONFIG_PATH_IN: "deploy-credentials-test.sh"
+      CONFIG_PATH_IN: "/usr/src/sentry/deploy-credentials-test.sh"
 
 volumes:
   config: {}
