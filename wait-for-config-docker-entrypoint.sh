@@ -8,7 +8,6 @@ FILE="$CONFIG_PATH_IN"
 if [ ${#FILE} -ge 1 ]; then
     echo "Using S3 config file."
     aws s3 cp s3://$S3_CONFIG_PATH $CONFIG_PATH
-    fi
 else
     echo "No config file defined. Running locally"
     cp local-credentials.sh $CONFIG_PATH
