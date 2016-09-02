@@ -2,14 +2,10 @@ version: '2'
 
 services:
   redis:
-    cpu_shares: 228
-    mem_limit: 301m
     image: redis
 
   sentry:
     image: m38io/datascience-sentry
-    cpu_shares: 412
-    mem_limit: 404m
     restart: always
     depends_on:
       - redis
@@ -24,8 +20,6 @@ services:
       CONFIG_PATH_IN: "/config/credentials.sh"
 
   sentry-cron:
-    cpu_shares: 128
-    mem_limit: 116m
     restart: always
     image: m38io/datascience-sentry:latest
     depends_on:
@@ -38,8 +32,6 @@ services:
       CONFIG_PATH_IN: "/config/credentials.sh"
 
   sentry-worker-1:
-    cpu_shares: 128
-    mem_limit: 116m
     restart: always
     image: m38io/datascience-sentry:latest
     depends_on:
