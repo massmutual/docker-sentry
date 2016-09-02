@@ -2,30 +2,20 @@
 
 set -e
 
+CONFIG_PATH=/config/credentials.sh
+
 FILE="$CONFIG_PATH_IN"
 if [ ${#FILE} -ge 1 ]; then
     echo "Using S3 config file."
-    x=0
-    while [ "$x" -lt 100 -a ! -e $FILE ]; do
-        x=$((x+1))
-        echo "Waiting for file to exist: $FILE"
-        sleep .5
-    done
-    if [ -f "${FILE}" ]
-    then
-        echo "Found: ${FILE}, copying to config directory: /config/credentials.sh"
-        cp ${FILE} /config/credentials.sh
-    else
-        echo "File ${FILE} not found within time limit!"
-        exit 1
+    aws s3 cp s3://$S3_CONFIG_PATH $CONFIG_PATH
     fi
 else
     echo "No config file defined. Running locally"
-    cp local-credentials.sh /config/credentials.sh
+    cp local-credentials.sh $CONFIG_PATH
     echo "Local config file copied successfully!"
 fi
 
-source /config/credentials.sh
+source $CONFIG_PATH
 
 # first check if we're passing flags, if so
 # prepend with sentry
