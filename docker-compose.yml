@@ -5,7 +5,7 @@ services:
     image: redis
 
   sentry:
-    image: m38io/datascience-sentry
+    image: m38io/datascience-sentry:latest
     restart: always
     depends_on:
       - redis
