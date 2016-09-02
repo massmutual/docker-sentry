@@ -11,7 +11,7 @@ if [ ${#FILE} -ge 1 ]; then
         echo "Waiting for file to exist: $FILE"
         sleep .5
     done
-    if [ -e ${FILE} ]
+    if [ -f "${FILE}" ]
     then
         echo "Found: ${FILE}, copying to config directory: /config/credentials.sh"
         cp ${FILE} /config/credentials.sh
