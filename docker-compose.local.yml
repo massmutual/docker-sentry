@@ -1,5 +1,8 @@
 version: '2'
 services:
+  redis:
+    image: redis
+
   postgres:
     restart: always
     image: postgres:9.5
@@ -24,11 +27,17 @@ services:
 
   sentry-cron:
     build: ./
+    links:
+      - redis
+      - postgres
     environment:
       CONFIG_PATH_IN: ""
 
   sentry-worker-1:
     build: ./
+    links:
+      - redis
+      - postgres
     environment:
       CONFIG_PATH_IN: ""
 
