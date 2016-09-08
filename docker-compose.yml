@@ -1,8 +1,6 @@
 version: '2'
 
 services:
-  redis:
-    image: redis
 
   sentry:
     image: m38io/datascience-sentry:latest
