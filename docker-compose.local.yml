@@ -20,8 +20,6 @@ services:
     links:
       - redis
       - postgres
-    ports:
-      - 80:9000
     environment:
       CONFIG_PATH_IN: ""
 
@@ -40,13 +38,6 @@ services:
       - postgres
     environment:
       CONFIG_PATH_IN: ""
-
-  configuration:
-    # Override the entrypoint so the configuration module does NOT try to get a config file
-    # from S3 bucket since for local development there is no corresponding S3 bucket. All
-    # configuration for local dev environment comes from the default.json file in /config dir
-    entrypoint: "/bin/echo Skipping loading of config file from S3 in local development environment"
-    logging: {}
 
 # Define shared volumes
 volumes:
