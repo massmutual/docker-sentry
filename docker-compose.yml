@@ -3,38 +3,38 @@ version: '2'
 services:
 
   sentry:
-    image: m38io/datascience-sentry:latest
+    build: ./
     restart: always
     ports:
       - 80:9000
     volumes:
       - config:/config
     environment:
-      S3_CONFIG_PATH: "sentry-test-bucket/deploy-credentials-test.sh"
+      S3_CONFIG_PATH: "advana-datalayer-nprd/deploy-credentials.sh"
       CONFIG_PATH_IN: "/config/credentials.sh"
 
   sentry-cron:
     restart: always
-    image: m38io/datascience-sentry:latest
+    build: ./
     depends_on:
       - sentry
     volumes:
       - config:/config
     command: "run cron"
     environment:
-      S3_CONFIG_PATH: "sentry-test-bucket/deploy-credentials-test.sh"
+      S3_CONFIG_PATH: "advana-datalayer-nprd/deploy-credentials.sh"
       CONFIG_PATH_IN: "/config/credentials.sh"
 
   sentry-worker-1:
     restart: always
-    image: m38io/datascience-sentry:latest
+    build: ./
     depends_on:
       - sentry
     volumes:
       - config:/config
     command: "run worker"
     environment:
-      S3_CONFIG_PATH: "sentry-test-bucket/deploy-credentials-test.sh"
+      S3_CONFIG_PATH: "advana-datalayer-nprd/deploy-credentials.sh"
       CONFIG_PATH_IN: "/config/credentials.sh"
 
 volumes:
