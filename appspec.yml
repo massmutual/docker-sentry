@@ -1,0 +1,16 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/sentry
+hooks:
+  BeforeInstall:
+    - location: /aws-codedeploy-scripts/setup.sh
+      timeout: 60
+      runas: root
+  ApplicationStart:
+    - location: /aws-codedeploy-scripts/start_server.sh
+      timeout: 360
+  ApplicationStop:
+    - location: /aws-codedeploy-scripts/stop_server.sh
+      timeout: 60

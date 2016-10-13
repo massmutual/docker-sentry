@@ -9,9 +9,7 @@ services:
       - 80:9000
     volumes:
       - config:/config
-    environment:
-      S3_CONFIG_PATH: "advana-datalayer-nprd/deploy-credentials.sh"
-      CONFIG_PATH_IN: "/config/credentials.sh"
+    env_file: .env
 
   sentry-cron:
     restart: always
@@ -21,9 +19,7 @@ services:
     volumes:
       - config:/config
     command: "run cron"
-    environment:
-      S3_CONFIG_PATH: "advana-datalayer-nprd/deploy-credentials.sh"
-      CONFIG_PATH_IN: "/config/credentials.sh"
+    env_file: .env
 
   sentry-worker-1:
     restart: always
@@ -33,9 +29,4 @@ services:
     volumes:
       - config:/config
     command: "run worker"
-    environment:
-      S3_CONFIG_PATH: "advana-datalayer-nprd/deploy-credentials.sh"
-      CONFIG_PATH_IN: "/config/credentials.sh"
-
-volumes:
-  config: {}
+    env_file: .env

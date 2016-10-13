@@ -1,3 +1,2 @@
 .DS_Store
-deploy-credentials.sh
-deploy-credentials-test.sh
+prod_credentials
