@@ -11,7 +11,7 @@ The instructions below can't be completed unless you have docker-machine install
 First, clone down this repository to your local machine and change into that directory:
 
 ```
-$ git clone git@github.com:respondcreate/docker-sentry.git
+$ git clone git@github.com:massmutual/docker-sentry.git
 $ cd docker-sentry
 ```
 

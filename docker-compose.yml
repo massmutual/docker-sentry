@@ -7,8 +7,6 @@ services:
     restart: always
     ports:
       - 80:9000
-    volumes:
-      - config:/config
     env_file: .env
 
   sentry-cron:
@@ -16,8 +14,6 @@ services:
     build: ./
     depends_on:
       - sentry
-    volumes:
-      - config:/config
     command: "run cron"
     env_file: .env
 
@@ -26,7 +22,5 @@ services:
     build: ./
     depends_on:
       - sentry
-    volumes:
-      - config:/config
     command: "run worker"
     env_file: .env
