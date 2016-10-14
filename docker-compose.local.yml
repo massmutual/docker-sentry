@@ -10,28 +10,28 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data/
-    env_file: local_credentials
+    env_file: local_env
   
   sentry:
     build: ./
     links:
       - redis
       - postgres
-    env_file: local_credentials
+    env_file: local_env
 
   sentry-cron:
     build: ./
     links:
       - redis
       - postgres
-    env_file: local_credentials
+    env_file: local_env
 
   sentry-worker-1:
     build: ./
     links:
       - redis
       - postgres
-    env_file: local_credentials
+    env_file: local_env
 
 # Define shared volumes
 volumes:

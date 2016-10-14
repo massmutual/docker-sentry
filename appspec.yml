@@ -4,10 +4,6 @@ files:
   - source: /
     destination: /var/sentry
 hooks:
-  AfterInstall:
-    - location: /aws-codedeploy-scripts/copy_creds.sh
-      timeout: 10
-      runas: root
   ApplicationStart:
     - location: /aws-codedeploy-scripts/start_server.sh
       timeout: 360
