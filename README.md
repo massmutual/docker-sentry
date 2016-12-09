@@ -68,3 +68,21 @@ Once Sentry is up and running locally you'll probably want to test how it works.
 4. Now do something in your app that you know will raise an exception (if your app is super-stable then just add a bit of code you know will cause it to barf).
 
 5. Within Sentry click on the 'Projects & Teams' link in the left sidebard (it's under the ORGANIZATION heading) and then click on the project you created in Step 2 to see how Sentry displays/aggregates errors.
+
+## Releasing to AWS
+
+First, change into the repo directory:
+
+```
+$ cd path/to/docker-sentry
+```
+
+Next, create a zip archive that ignores any git-related files or archives. In the command below substitute `YYYY-MM-DD` with today's date:
+
+```
+$ zip -r docker-sentry-YYYY-MM-DD.zip . -x *.git* -x *.zip*
+```
+
+Now, upload this file into the `releases` folder of the `mm-datascience-sentry` bucket in the Data Science Non-Prod AWS account.
+
+And finally, initiate a CodeDeploy release that points to the file path of the zip file you just uploaded into S3. This deployment should be to the `SentryProdDeploymentGroup` deployment group of the `Sentry` application in the Non-Prod Data Science AWS account.
